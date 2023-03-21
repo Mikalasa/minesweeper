@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 //custom
 import "../index.css"
@@ -6,18 +6,34 @@ import Cells from "./Cell";
 import Utility from "./Utility";
 
 function Board() {
+    const [squareArray, setSquareArray] = useState([]);
+    var initClick = 0
+
     var R=9
     var L=9
     var M=10
 
-    var cells = []
     var row = R
     var col = L
     var mines = M
-    var squareArray = []
+    var cells = []
+    var startSquareArray = []
 
-    function createCells() {
-        var noMines = row * col - mines
+    function beforeStartedCells() {
+        var m = 0
+        for (let i = 0; i < row * col; i++) {
+            cells.push(m)
+        }
+        for (let i = 0; i < col; i ++) {
+            let sub = cells.splice(0, row)
+            squareArray.push(sub)
+        }
+        console.log("initSquareArray: ", squareArray)
+    }
+
+    function createCells(clickedCellIndex) {
+        cells = []
+        var noMines = row * col - mines - 1
         for (let i = 0; i < noMines; i++) {
             const numberOfNoMines = 0
             cells.push(numberOfNoMines)
@@ -26,17 +42,18 @@ function Board() {
             const numberOfMines = 9
             cells.push(numberOfMines)
         }
-        shuffle(row, col, cells)
+        shuffle(row, col, cells, clickedCellIndex)
     }
 
     // random the mines
-    function shuffle(row, col, cells) {
+    function shuffle(row, col, cells, clickedCellIndex) {
         for (let i = cells.length - 1; i >= 0; i --) {
             let randomIndex = Math.floor(Math.random() * (i + 1))
             let itemIndex = cells[randomIndex]
             cells[randomIndex] = cells[i]
             cells[i] = itemIndex
         }
+        cells.splice(clickedCellIndex, 0, 0)
         console.log("cells: ", cells, 'cellsLength: ', cells.length)
         squareArraySplite(cells, row, col)
         return cells
@@ -46,19 +63,29 @@ function Board() {
     function squareArraySplite(cells, row, col) {
         for (let i = 0; i < col; i ++) {
             let sub = cells.splice(0, row)
-            squareArray.push(sub)
+            startSquareArray.push(sub)
         }
         //set number around the mines
-        Utility.prototype.markedSquare(squareArray)
+        Utility.prototype.markedSquare(startSquareArray)
+        console.log("MarkedStartSquareArray: ", startSquareArray, 'MarkedStartSquareArray: ', startSquareArray.length)
     }
 
-    console.log("squareArray: ", squareArray, 'squareArrayLength: ', squareArray.length)
-    createCells()
+    beforeStartedCells()
+    function countClicks(clicked, clickedCellIndex) {
+        if (clicked === true) {
+            initClick = initClick + 1
+        }
+        if (initClick === 1) {
+            createCells(clickedCellIndex)
+            setSquareArray(startSquareArray)
+        }
+        console.log("numberOfClicked: ", initClick, "clicked: ", clicked, "clickedCellIndex: ", clickedCellIndex, "updateSquareArray: ", squareArray)
+    }
 
     return(
         <div className="board">
             {squareArray.map((value, index) => {
-                console.log("value: ", value, "index: ", index)
+                //console.log("value: ", value, "index: ", index)
                 var times = index
                 return(
                     value.map((number, index)=> {
@@ -66,6 +93,7 @@ function Board() {
                             <Cells
                                 number={number}
                                 index={times * value.length + index}
+                                countClick={countClicks}
                             />
                         )
                     })
