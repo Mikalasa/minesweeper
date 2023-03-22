@@ -2,8 +2,27 @@ import Utility from "./Utility";
 
 class Game {
     constructor() {
-        this.startSquareArray = []
+
     }
+    beforeStartedGameCells(cells, noStartGameArray, row, col) {
+        var m = 0
+        for (let i = 0; i < row * col; i++) {
+            cells.push(m)
+        }
+        for (let i = 0; i < col; i ++) {
+            let sub = cells.splice(0, row)
+            noStartGameArray.push(sub)
+        }
+        return noStartGameArray
+    }
+    startGame(clickedCellIndex, coordIndex, setSquareArray, gameStart, row, col, cells, mines, startSquareArray) {
+        console.log('clickedCellIndex: ', clickedCellIndex)
+        if (gameStart === false) {
+            Game.prototype.createCells(clickedCellIndex, coordIndex, row, col, cells, mines, startSquareArray)
+            setSquareArray(startSquareArray)
+        }
+    }
+
     createCells(clickedCellIndex, coordIndex, row, col, cells, mines, startSquareArray) {
         cells = []
         var noMines = row * col - mines - 1
