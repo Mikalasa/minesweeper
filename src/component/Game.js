@@ -1,10 +1,12 @@
 import Utility from "./Utility";
+import config from "./Config";
 
 class Game {
     constructor() {
-
+        this.row = config.gameBoard.row
     }
     beforeStartedGameCells(cells, noStartGameArray, row, col) {
+        console.log("config: ", config)
         var m = 0
         for (let i = 0; i < row * col; i++) {
             cells.push(m)
