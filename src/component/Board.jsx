@@ -6,9 +6,6 @@ import Cells from "./Cell";
 import Utility from "./Utility";
 
 function Board() {
-    const [squareArray, setSquareArray] = useState([]);
-    var initClick = 0
-
     var R=9
     var L=9
     var M=10
@@ -17,21 +14,26 @@ function Board() {
     var col = L
     var mines = M
     var cells = []
+    var noStartGameArray = []
     var startSquareArray = []
 
-    function beforeStartedCells() {
+    function beforeStartedGameCells() {
         var m = 0
         for (let i = 0; i < row * col; i++) {
             cells.push(m)
         }
         for (let i = 0; i < col; i ++) {
             let sub = cells.splice(0, row)
-            squareArray.push(sub)
+            noStartGameArray.push(sub)
         }
-        console.log("initSquareArray: ", squareArray)
     }
 
-    function createCells(clickedCellIndex) {
+    beforeStartedGameCells()
+
+    const [squareArray, setSquareArray] = useState(noStartGameArray);
+    const [gameStart, setGameStart] = useState(false);
+
+    function createCells(clickedCellIndex, coordIndex) {
         cells = []
         var noMines = row * col - mines - 1
         for (let i = 0; i < noMines; i++) {
@@ -42,11 +44,11 @@ function Board() {
             const numberOfMines = 9
             cells.push(numberOfMines)
         }
-        shuffle(row, col, cells, clickedCellIndex)
+        shuffle(row, col, cells, clickedCellIndex, coordIndex)
     }
 
     // random the mines
-    function shuffle(row, col, cells, clickedCellIndex) {
+    function shuffle(row, col, cells, clickedCellIndex, coordIndex) {
         for (let i = cells.length - 1; i >= 0; i --) {
             let randomIndex = Math.floor(Math.random() * (i + 1))
             let itemIndex = cells[randomIndex]
@@ -54,45 +56,48 @@ function Board() {
             cells[i] = itemIndex
         }
         cells.splice(clickedCellIndex, 0, 0)
-        console.log("cells: ", cells, 'cellsLength: ', cells.length)
-        squareArraySplite(cells, row, col)
+        squareArraySplite(cells, row, col, coordIndex)
         return cells
     }
 
     //init squareArray
-    function squareArraySplite(cells, row, col) {
+    function squareArraySplite(cells, row, col, coordIndex) {
         for (let i = 0; i < col; i ++) {
             let sub = cells.splice(0, row)
             startSquareArray.push(sub)
         }
         //set number around the mines
-        Utility.prototype.markedSquare(startSquareArray)
-        console.log("MarkedStartSquareArray: ", startSquareArray, 'MarkedStartSquareArray: ', startSquareArray.length)
+        Utility.prototype.markedSquare(startSquareArray, coordIndex)
     }
 
-    beforeStartedCells()
-    function countClicks(clicked, clickedCellIndex) {
-        if (clicked === true) {
-            initClick = initClick + 1
-        }
-        if (initClick === 1) {
-            createCells(clickedCellIndex)
+    function startGame(clickedCellIndex, coordIndex) {
+        console.log('clickedCellIndex: ', clickedCellIndex)
+        if (gameStart === false) {
+            createCells(clickedCellIndex, coordIndex)
             setSquareArray(startSquareArray)
         }
-        console.log("numberOfClicked: ", initClick, "clicked: ", clicked, "clickedCellIndex: ", clickedCellIndex, "updateSquareArray: ", squareArray)
     }
+
+    function countClicks(clicked, clickedCellIndex, coordIndex) {
+        if (clicked === true) {
+            setGameStart(true)
+        }
+        startGame(clickedCellIndex, coordIndex)
+    }
+    console.log("gameStart: ", gameStart, "updateSquareArray: ", squareArray)
 
     return(
         <div className="board">
-            {squareArray.map((value, index) => {
+            {squareArray.map((value, rowIndex) => {
                 //console.log("value: ", value, "index: ", index)
-                var times = index
+                var times = rowIndex
                 return(
-                    value.map((number, index)=> {
+                    value.map((number, colIndex)=> {
                         return(
                             <Cells
                                 number={number}
-                                index={times * value.length + index}
+                                index={times * value.length + colIndex}
+                                coordIndex={{rowIndex, colIndex}}
                                 countClick={countClicks}
                             />
                         )

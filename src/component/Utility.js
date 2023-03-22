@@ -26,13 +26,15 @@ class Utility {
         }
     }
 
-    markedSquare(squareArray) {
+    markedSquare(squareArray, coordIndex) {
         for (let i = 0; i < squareArray.length; i++) {
             let line = squareArray[i]
             for (let j = 0; j < line.length; j++) {
                 this.markAround(squareArray, i, j)
             }
         }
+        console.log('specific of squareArray: ', squareArray[coordIndex.rowIndex][coordIndex.colIndex])
+        squareArray[coordIndex.rowIndex][coordIndex.colIndex] = 0
         return squareArray
     }
 }

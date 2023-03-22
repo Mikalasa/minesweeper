@@ -17,7 +17,8 @@ function Cell(props) {
     function handleClick() {
         if (clicked === false) {
             clicked = true
-            props.countClick(clicked, props.index)
+            console.log('props.coordIndex: ', props.coordIndex)
+            props.countClick(clicked, props.index, props.coordIndex)
         }
     }
 
