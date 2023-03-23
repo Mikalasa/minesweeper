@@ -1,4 +1,4 @@
-class Utility {
+class Utility{
     constructor() {
 
     }
@@ -26,16 +26,16 @@ class Utility {
         }
     }
 
-    markedSquare(squareArray, coordIndex) {
-        for (let i = 0; i < squareArray.length; i++) {
-            let line = squareArray[i]
+    markedSquare(startSquareArray, coordIndex) {
+        for (let i = 0; i < startSquareArray.length; i++) {
+            let line = startSquareArray[i]
             for (let j = 0; j < line.length; j++) {
-                this.markAround(squareArray, i, j)
+                this.markAround(startSquareArray, i, j)
             }
         }
-        console.log('specific of squareArray: ', squareArray[coordIndex.rowIndex][coordIndex.colIndex])
-        squareArray[coordIndex.rowIndex][coordIndex.colIndex] = 0
-        return squareArray
+        console.log('specific of squareArray: ', startSquareArray[coordIndex.rowIndex][coordIndex.colIndex])
+        startSquareArray[coordIndex.rowIndex][coordIndex.colIndex] = 0
+        return startSquareArray
     }
 }
 
