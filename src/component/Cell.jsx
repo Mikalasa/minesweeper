@@ -18,7 +18,7 @@ function Cell(props) {
         if (clicked === false) {
             clicked = true
             console.log('props.coordIndex: ', props.coordIndex)
-            props.leftClick(clicked, props.index, props.coordIndex, props)
+            props.leftClick(clicked, props)
         }
     }
 
