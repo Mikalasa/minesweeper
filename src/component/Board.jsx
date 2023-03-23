@@ -3,8 +3,8 @@ import React, { useState } from "react";
 //custom
 import "../index.css"
 import Cells from "./Cell";
-import Utility from "./Utility";
 import Game from "./Game";
+import config from "./Config";
 
 function Board() {
     var R=9
@@ -15,38 +15,22 @@ function Board() {
     var col = L
     var mines = M
     var cells = []
-    var noStartGameArray = []
     var startSquareArray = []
 
-    function beforeStartedGameCells() {
-        var m = 0
-        for (let i = 0; i < row * col; i++) {
-            cells.push(m)
-        }
-        for (let i = 0; i < col; i ++) {
-            let sub = cells.splice(0, row)
-            noStartGameArray.push(sub)
-        }
-    }
+    //Game.prototype.beforeStartedGameCells(cells, noStartGameArray, row, col)
 
-    beforeStartedGameCells()
-
-    const [squareArray, setSquareArray] = useState(noStartGameArray);
     const [gameStart, setGameStart] = useState(false);
+    const [squareArray, setSquareArray] = useState(config.gameBoard.noStartGameArray);
+    new Game(gameStart, setSquareArray, 'props')
 
-    function startGame(clickedCellIndex, coordIndex) {
-        console.log('clickedCellIndex: ', clickedCellIndex)
-        if (gameStart === false) {
-            Game.prototype.createCells(clickedCellIndex, coordIndex, row, col, cells, mines, startSquareArray)
-            setSquareArray(startSquareArray)
-        }
-    }
-
-    function leftClicks(clicked, clickedCellIndex, coordIndex) {
+    function leftClicks(clicked, clickedCellIndex, coordIndex, props) {
         if (clicked === true) {
             setGameStart(true)
         }
-        startGame(clickedCellIndex, coordIndex)
+        var game = new Game(gameStart, setSquareArray, props)
+        game.showParamter()
+        console.log("props: ", props, "type of props: ", props)
+        //Game.prototype.startGame(clickedCellIndex, coordIndex, setSquareArray, gameStart, row, col, cells, mines, startSquareArray)
     }
     console.log("gameStart: ", gameStart, "updateSquareArray: ", squareArray)
 
