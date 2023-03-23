@@ -3,34 +3,22 @@ import React, { useState } from "react";
 //custom
 import "../index.css"
 import Cells from "./Cell";
-import Game from "./Game";
-import config from "./Config";
+import Game from "./features/Game";
+import Utility from "./features/Utility";
+import InitCells from "./features/InitCells";
+import config from "./features/Config";
 
 function Board() {
-    var R=9
-    var L=9
-    var M=10
-
-    var row = R
-    var col = L
-    var mines = M
-    var cells = []
-    var startSquareArray = []
-
-    //Game.prototype.beforeStartedGameCells(cells, noStartGameArray, row, col)
 
     const [gameStart, setGameStart] = useState(false);
     const [squareArray, setSquareArray] = useState(config.gameBoard.noStartGameArray);
-    new Game(gameStart, setSquareArray, 'props')
+    new InitCells(config)
 
-    function leftClicks(clicked, clickedCellIndex, coordIndex, props) {
+    function leftClicks(clicked, props) {
         if (clicked === true) {
             setGameStart(true)
         }
-        var game = new Game(gameStart, setSquareArray, props)
-        game.showParamter()
-        console.log("props: ", props, "type of props: ", props)
-        //Game.prototype.startGame(clickedCellIndex, coordIndex, setSquareArray, gameStart, row, col, cells, mines, startSquareArray)
+        new Game(gameStart, setSquareArray, props, config, Utility)
     }
     console.log("gameStart: ", gameStart, "updateSquareArray: ", squareArray)
 
