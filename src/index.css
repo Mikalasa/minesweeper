@@ -10,8 +10,8 @@
 .board {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    align-content: flex-start;
+    align-content: space-between;
+    justify-content: space-around;
     width: 396px;
     height: 396px;
     border-top: 5px solid #c6c6c6;
@@ -26,13 +26,25 @@
     color: gray;
     cursor: pointer;
     border: solid gray 4px;
-    font-size: 20px;
     border-color: #eee #999 #999 #eee;
     background-color: #ccc;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.cell-hide {
+    font-size: 0;
+}
+
+.cell-opened {
+    height: 42px;
+    width: 42px;
+    font-size: 30px;
+    background-color: #bbb;
+    border: solid gray 1px;
+    border-color: #999;
 }
 
 .word {
@@ -47,8 +59,8 @@
 }
 
 .bomb {
-    height: 42px;
-    width: 42px;
+    height: 36px;
+    width: 36px;
 }
 
 .bombclick {
@@ -61,16 +73,7 @@
 
 }
 
-.opened {
-    height: 42px;
-    width: 42px;
-    display: inline-block;
-    font-size: 30px;
-    background-color: #bbb;
-    border-width: 1px;
-    border-color: #999;
-    text-align: center;
-}
+
 
 .emoji {
     position: relative;

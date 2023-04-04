@@ -21,7 +21,6 @@ class Game {
             this.createCells()
             this.setSquareArray(this.gameBoard.startSquareArray)
         }
-
     }
 
     createCells() {
@@ -48,13 +47,11 @@ class Game {
         }
         cells.splice(this.clickedCellIndex, 0, 0)
         this.squareArraySplite()
-        //console.log("game.cells: ", this.cells)
         return cells
     }
 
     //init squareArray
     squareArraySplite() {
-        //console.log("Game.startSquareArray: ", this.startSquareArray, "Game.coordIndex: ", this.coordIndex, "game.cells: ", this.cells)
         for (let i = 0; i < this.col; i ++) {
             let sub = this.cells.splice(0, this.row)
             this.startSquareArray.push(sub)

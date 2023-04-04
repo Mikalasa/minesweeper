@@ -6,21 +6,26 @@ import Cells from "./Cell";
 import Game from "./features/Game";
 import Utility from "./features/Utility";
 import InitCells from "./features/InitCells";
+import LeftClick from "./features/LeftClick";
 import config from "./features/Config";
 
 function Board() {
 
     const [gameStart, setGameStart] = useState(false);
     const [squareArray, setSquareArray] = useState(config.gameBoard.noStartGameArray);
+    //const [cellHide, setCellHide] = useState('cell-hide')
     new InitCells(config)
 
     function leftClicks(clicked, props) {
         if (clicked === true) {
             setGameStart(true)
+            new LeftClick(clicked, props)
+            //setCellHide('cell-opened')
         }
         new Game(gameStart, setSquareArray, props, config, Utility)
     }
-    console.log("gameStart: ", gameStart, "updateSquareArray: ", squareArray)
+
+    console.log("gameStarted: ", gameStart, "updateSquareArray: ", squareArray)
 
     return(
         <div className="board">
@@ -34,6 +39,9 @@ function Board() {
                                 index={times * value.length + colIndex}
                                 coordIndex={{rowIndex, colIndex}}
                                 leftClick={leftClicks}
+                                x={rowIndex}
+                                y={colIndex}
+                                //hide={cellHide}
                             />
                         )
                     })

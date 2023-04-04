@@ -33,7 +33,7 @@ class Utility{
                 this.markAround(startSquareArray, i, j)
             }
         }
-        console.log('specific of squareArray: ', startSquareArray[coordIndex.rowIndex][coordIndex.colIndex])
+        //console.log('specific of squareArray: ', startSquareArray[coordIndex.rowIndex][coordIndex.colIndex])
         startSquareArray[coordIndex.rowIndex][coordIndex.colIndex] = 0
         return startSquareArray
     }
