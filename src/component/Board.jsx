@@ -16,13 +16,13 @@ function Board() {
     //const [cellHide, setCellHide] = useState('cell-hide')
     new InitCells(config)
 
-    function leftClicks(clicked, props) {
+    async function leftClicks (clicked, props) {
         if (clicked === true) {
             setGameStart(true)
-            new LeftClick(clicked, props)
             //setCellHide('cell-opened')
         }
-        new Game(gameStart, setSquareArray, props, config, Utility)
+        await new Game(gameStart, setSquareArray, props, config, Utility)
+        await new LeftClick(clicked, props)
     }
 
     console.log("gameStarted: ", gameStart, "updateSquareArray: ", squareArray)

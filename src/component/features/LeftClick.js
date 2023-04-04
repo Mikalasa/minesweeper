@@ -15,12 +15,12 @@ class LeftClick{
                 if (item.classList.contains(index)) {
                     console.log('here is ', index)
                     let number = item.dataset.number
-                    if (number == 0) {
+                    if (number === '0') {
                         item.classList.add('cell-opened')
                         let x = Number(this.props.x)
                         let y = Number(this.props.y)
                         this.openAround(x, y)
-                    } else if (number != 9) {
+                    } else if (number !== '9') {
                         item.classList.add('cell-opened')
                     } else {
                         console.log('bomb! you clicked!')
@@ -29,9 +29,8 @@ class LeftClick{
             })
         }
     }
-    openAround(x, y) {
+    async openAround(x, y) {
         let aroundZeroCells = []
-        let newAroundZeroCells = []
         //upper left
         if (x - 1 > -1 && y - 1 > -1) {
             let newCellClass = '.index-' + ((x - 1) * Config.gameBoard.row + (y - 1))
@@ -80,24 +79,28 @@ class LeftClick{
             let newCell = document.querySelector(`${newCellClass}`)
             aroundZeroCells.push(newCell)
         }
-        for (let i = 0; i < aroundZeroCells.length; i++) {
-            //console.log('aroundZeroCells: ', aroundZeroCells)
-            let cell = aroundZeroCells[i]
-            let number = cell.dataset.number
-            console.log("number: ", number, "type of number: ", typeof number, 'cell: ', cell)
-            // if(number === '0'){
-            //     console.log('cell = 0: ', cell)
-            //     //console.log("number = 0: ", cell, "number: ", number, "type of number: ", typeof number)
-            //     newAroundZeroCells.push(cell)
-            // }
-            // if (number === '9' || cell.classList.contains('cell-opened')) {
-            //
-            // } else {
-            //     cell.classList.add('cell-opened')
-            // }
+        aroundZeroCells.forEach( (item) => {
+            let newAroundZeroCells = []
+            let number = item.dataset.number
+            //const result1 = number === '0' ? newAroundZeroCells.push(item) : {}
+            //const result2 = number !== '9' && !item.classList.contains('cell-opened') ? item.classList.add('cell-opened') : {}
+            if (number === '0') {
+                newAroundZeroCells.push(item)
+            }
+            if (number !== '9' && !item.classList.contains('cell-opened')) {
+                item.classList.add('cell-opened')
+            }
+            //console.log("result1: ", result1, "result2: ", result2)
+            //console.log('newAroundZeroCells: ', newAroundZeroCells)
+            newAroundZeroCells.forEach( (item) => {
+                let cell = item
+                let x = Number(cell.dataset.x)
+                let y = Number(cell.dataset.y)
+                //this.openAround(x, y)
+                console.log("call cell: ", cell)
+            })
+        })
 
-        }
-        console.log('newAroundZeroCells: ', newAroundZeroCells)
     }
 }
 
