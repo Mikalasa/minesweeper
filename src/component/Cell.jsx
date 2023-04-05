@@ -11,8 +11,6 @@ function Cell(props) {
         var src = "./Svgs/bomb.svg"
     }
 
-
-
     function handleClick() {
         if (clicked === false) {
             clicked = true

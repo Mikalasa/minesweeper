@@ -1,3 +1,5 @@
+import config from "./Config";
+
 class InitCells {
     constructor(config) {
         this.gameBoard = config.gameBoard

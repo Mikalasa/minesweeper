@@ -1,3 +1,5 @@
+import config from "./Config";
+
 class Game {
     constructor(gameStart, setSquareArray, props, config, Utility) {
         this.gameBoard = config.gameBoard
@@ -20,6 +22,7 @@ class Game {
         if (this.gameStart === false) {
             this.createCells()
             this.setSquareArray(this.gameBoard.startSquareArray)
+            this.gameBoard.noStartGameArray=[]
         }
     }
 

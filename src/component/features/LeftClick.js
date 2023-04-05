@@ -25,79 +25,80 @@ class LeftClick{
                     } else {
                         console.log('bomb! you clicked!')
                     }
+                    if (number === '9') {
+                        //console.log("clicked bomb!")
+                    }
                 }
             })
         }
     }
     async openAround(x, y) {
-        let aroundZeroCells = []
+        let aroundCells = []
         //upper left
         if (x - 1 > -1 && y - 1 > -1) {
             let newCellClass = '.index-' + ((x - 1) * Config.gameBoard.row + (y - 1))
             let newCell = document.querySelector(`${newCellClass}`)
-            aroundZeroCells.push(newCell)
+            aroundCells.push(newCell)
         }
         //left
         if (x - 1 > -1) {
             let newCellClass = '.index-' + ((x - 1) * Config.gameBoard.row + y)
             let newCell = document.querySelector(`${newCellClass}`)
-            aroundZeroCells.push(newCell)
+            aroundCells.push(newCell)
         }
         //lower left
         if (x - 1 > -1 && y + 1 < 9) {
             let newCellClass = '.index-' + ((x - 1) * Config.gameBoard.row + (y + 1))
             let newCell = document.querySelector(`${newCellClass}`)
-            aroundZeroCells.push(newCell)
+            aroundCells.push(newCell)
         }
         //upper
         if (y - 1 > -1) {
             let newCellClass = '.index-' + (x * Config.gameBoard.row + (y - 1))
             let newCell = document.querySelector(`${newCellClass}`)
-            aroundZeroCells.push(newCell)
+            aroundCells.push(newCell)
         }
         //lower
         if (y + 1 < 9) {
             let newCellClass = '.index-' + (x * Config.gameBoard.row + (y + 1))
             let newCell = document.querySelector(`${newCellClass}`)
-            aroundZeroCells.push(newCell)
+            aroundCells.push(newCell)
         }
         //upper right
         if (x + 1 < 9 && y - 1 > -1) {
             let newCellClass = '.index-' + ((x + 1) * Config.gameBoard.row + (y - 1))
             let newCell = document.querySelector(`${newCellClass}`)
-            aroundZeroCells.push(newCell)
+            aroundCells.push(newCell)
         }
         //right
         if (x + 1 < 9) {
             let newCellClass = '.index-' + ((x + 1) * Config.gameBoard.row + y)
             let newCell = document.querySelector(`${newCellClass}`)
-            aroundZeroCells.push(newCell)
+            aroundCells.push(newCell)
         }
         //lower right
         if (x + 1 < 9 && y + 1 < 9) {
             let newCellClass = '.index-' + ((x + 1) * Config.gameBoard.row + (y + 1))
             let newCell = document.querySelector(`${newCellClass}`)
-            aroundZeroCells.push(newCell)
+            aroundCells.push(newCell)
         }
-        aroundZeroCells.forEach( (item) => {
-            let newAroundZeroCells = []
+        //console.log('aroundCells:', aroundCells)
+        aroundCells.forEach( (item) => {
+            var newAroundZeroCells = []
             let number = item.dataset.number
-            //const result1 = number === '0' ? newAroundZeroCells.push(item) : {}
-            //const result2 = number !== '9' && !item.classList.contains('cell-opened') ? item.classList.add('cell-opened') : {}
-            if (number === '0') {
-                newAroundZeroCells.push(item)
-            }
             if (number !== '9' && !item.classList.contains('cell-opened')) {
+                //console.log('if in', 'item:', item)
                 item.classList.add('cell-opened')
+                if (number === '0') {
+                    newAroundZeroCells.push(item)
+                }
             }
-            //console.log("result1: ", result1, "result2: ", result2)
-            //console.log('newAroundZeroCells: ', newAroundZeroCells)
+            //console.log('newAroundZeroCells: ', newAroundZeroCells, 'newAroundZeroCells length: ', newAroundZeroCells.length)
             newAroundZeroCells.forEach( (item) => {
                 let cell = item
                 let x = Number(cell.dataset.x)
                 let y = Number(cell.dataset.y)
-                //this.openAround(x, y)
-                console.log("call cell: ", cell)
+                this.openAround(x, y)
             })
         })
 
