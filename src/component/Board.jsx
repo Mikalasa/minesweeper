@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 
 //custom
 import "../index.css"
@@ -7,29 +6,24 @@ import Cells from "./Cell";
 //custom JS
 import Game from "./features/Game";
 import Utility from "./features/Utility";
-import InitCells from "./features/InitCells";
 import LeftClick from "./features/LeftClick";
 import config from "./features/Config";
 
 function Board(appProps) {
 
-    if (appProps.gameStart === false) {
-        new InitCells(config)
-    }
     async function leftClicks (clicked, props) {
         if (clicked === true) {
             appProps.setGameStart(true)
-            //setCellHide('cell-opened')
         }
+        config.gameBoard.startSquareArray = []
         await new Game(appProps.gameStart, appProps.setSquareArray, props, config, Utility)
         await new LeftClick(clicked, props)
         if (props.number === 9) {
-            appProps.setLose(true)
-            appProps.clickedBomb(appProps.setSquareArray)
+            appProps.clickedBomb()
         }
     }
 
-    console.log("gameStarted: ", appProps.gameStart, "updateSquareArray: ", appProps.squareArray)
+    console.log("gameStarted: ", appProps.gameStart, "currentSquareArray: ", appProps.squareArray)
 
     return(
         <div className="board">
@@ -45,7 +39,7 @@ function Board(appProps) {
                                 leftClick={leftClicks}
                                 x={rowIndex}
                                 y={colIndex}
-                                //hide={cellHide}
+                                startGame={appProps.gameStart}
                             />
                         )
                     })

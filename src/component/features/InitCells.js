@@ -1,5 +1,3 @@
-import config from "./Config";
-
 class InitCells {
     constructor(config) {
         this.gameBoard = config.gameBoard
@@ -13,17 +11,20 @@ class InitCells {
         var noStartGameArray = this.gameBoard.noStartGameArray
         var m = 0
         for (let i = 0; i < row * col; i++) {
+            //console.log("in init loop times:", i)
             cells.push(m)
         }
-        for (let i = 0; i < col; i ++) {
+        for (let j = 0; j < col; j ++) {
             let sub = cells.splice(0, row)
+            //console.log("in init sub:", sub, "col:", col)
             noStartGameArray.push(sub)
         }
-        //console.log("this.gameBoard: ", this.gameBoard)
+        //console.log("in init noStartGameArray:", noStartGameArray)
         return noStartGameArray
     }
 
     init() {
+        //console.log("noStartGameArray in Init:", this.gameBoard.noStartGameArray)
         this.beforeStartedGameCells()
     }
 }

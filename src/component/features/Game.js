@@ -22,7 +22,6 @@ class Game {
         if (this.gameStart === false) {
             this.createCells()
             this.setSquareArray(this.gameBoard.startSquareArray)
-            this.gameBoard.noStartGameArray=[]
         }
     }
 

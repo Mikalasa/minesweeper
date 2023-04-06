@@ -14,8 +14,11 @@ function Cell(props) {
     function handleClick() {
         if (clicked === false) {
             clicked = true
-            console.log('props.coordIndex: ', props.coordIndex, 'cellIndex: ', props.index)
+            //console.log('props.coordIndex: ', props.coordIndex, 'cellIndex: ', props.index)
             props.leftClick(clicked, props)
+        }
+        if (clicked === true && props.startGame === false) {
+            clicked = false
         }
     }
 

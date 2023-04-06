@@ -17,18 +17,29 @@ function App() {
     const [lose, setLose] = useState(false);
     const [gameStart, setGameStart] = useState(false);
     const [squareArray, setSquareArray] = useState(config.gameBoard.noStartGameArray);
-    function clickedBomb(setSquareArray) {
+    const [initEnable, setInitEnable] = useState(true);
+    function clickedBomb() {
         console.log("clicked bomb!")
         setMessage('You lose, click emoji to restart')
         setEmoji('./Svgs/deademoji.svg')
+        setLose(true)
+        setGameStart(false)
         new GameOver()
     }
     function restartGame() {
-        setGameStart(false)
-        // setSquareArray((prevState) => {
-        //     console.log("restart", prevState)
-        //     prevState = new InitCells(config)
-        // })
+        config.gameBoard.noStartGameArray = []
+        console.log("restart squareArray", config.gameBoard.noStartGameArray)
+        setInitEnable(true)
+        setMessage('Mine Sweeper')
+        setEmoji('./Svgs/emoji.svg')
+        setLose(false)
+        setSquareArray(config.gameBoard.noStartGameArray)
+        new GameOver().cleanClasses()
+    }
+
+    if (initEnable === true) {
+        new InitCells(config)
+        setInitEnable(false)
     }
 
     return (

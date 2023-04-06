@@ -3,7 +3,6 @@
 function InfoPanel(appProps) {
     function clickEmoji() {
         if (appProps.lose === true) {
-            console.log('emoji if in')
             appProps.restartGame()
         }
     }

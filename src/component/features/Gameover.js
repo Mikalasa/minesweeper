@@ -8,8 +8,17 @@ class GameOver {
             item.classList.add('ban')
         })
     }
-    reloadPage() {
-        window.location.reload()
+    cleanClasses() {
+        console.log('i am cleaning')
+        var cells = document.querySelectorAll('.cell')
+        cells.forEach((item) => {
+            if (item.classList.contains('cell-opened')) {
+                item.classList.remove('cell-opened')
+            }
+            if (item.classList.contains('ban')) {
+                item.classList.remove('ban')
+            }
+        })
     }
 }
 

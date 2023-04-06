@@ -13,7 +13,7 @@ class LeftClick{
             let allCells = document.querySelectorAll('.cell')
             allCells.forEach((item) => {
                 if (item.classList.contains(index)) {
-                    console.log('here is ', index)
+                    //console.log('here is ', index)
                     let number = item.dataset.number
                     if (number === '0') {
                         item.classList.add('cell-opened')
@@ -23,7 +23,7 @@ class LeftClick{
                     } else if (number !== '9') {
                         item.classList.add('cell-opened')
                     } else {
-                        console.log('bomb! you clicked!')
+                        //console.log('bomb! you clicked!')
                     }
                     if (number === '9') {
                         //console.log("clicked bomb!")
