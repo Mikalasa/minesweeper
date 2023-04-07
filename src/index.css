@@ -53,9 +53,12 @@
     margin-left: -18%;
 }
 
-.img-flag {
+.flag {
     height: 32px;
     width: 32px;
+}
+.flag-hide {
+    display: none;
 }
 
 .bomb {
@@ -63,14 +66,12 @@
     width: 36px;
 }
 
-.bombclick {
+.bomb-clicked {
     background-color: #8e4545
 }
 
 .bomb-hide {
-
     display: none;
-
 }
 
 

@@ -1,5 +1,5 @@
 //React
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 
 //custom
 import Board from "./Board"
@@ -18,12 +18,18 @@ function App() {
     const [gameStart, setGameStart] = useState(false);
     const [squareArray, setSquareArray] = useState(config.gameBoard.noStartGameArray);
     const [initEnable, setInitEnable] = useState(true);
-    function clickedBomb() {
+    const [startTimer, setStartTimer] = useState(false);
+    const [timer, setTimer] = useState(config.gameBoard.timer);
+    const [clickedBomb, setClickedBomb] = useState(false);
+    const [flagCounter, setFlagCounter] = useState(config.gameBoard.flags);
+
+    function gameOver() {
         console.log("clicked bomb!")
         setMessage('You lose, click emoji to restart')
         setEmoji('./Svgs/deademoji.svg')
         setLose(true)
         setGameStart(false)
+        setStartTimer(false)
         new GameOver()
     }
     function restartGame() {
@@ -34,12 +40,19 @@ function App() {
         setEmoji('./Svgs/emoji.svg')
         setLose(false)
         setSquareArray(config.gameBoard.noStartGameArray)
-        new GameOver().cleanClasses()
+        setTimer(config.gameBoard.timer)
+        setClickedBomb(false)
+        setFlagCounter(config.gameBoard.flags)
+        new GameOver().cleanClasses(config.gameBoard.flags)
+        new GameOver().stopShowFlagNoBomb()
     }
 
     if (initEnable === true) {
         new InitCells(config)
         setInitEnable(false)
+    }
+    function onTimeUp() {
+        gameOver()
     }
 
     return (
@@ -49,14 +62,23 @@ function App() {
                 emoji={emoji}
                 lose={lose}
                 restartGame={restartGame}
+                startTimer={startTimer}
+                onTimeUp={onTimeUp}
+                timer={timer}
+                setTimer={setTimer}
+                flagCounter={flagCounter}
             />
             <Board
-                clickedBomb={clickedBomb}
+                gameOver={gameOver}
                 setLose={setLose}
                 setGameStart={setGameStart}
                 gameStart={gameStart}
                 squareArray={squareArray}
                 setSquareArray={setSquareArray}
+                setStartTimer={setStartTimer}
+                clickedBomb={clickedBomb}
+                setClickedBomb={setClickedBomb}
+                setFlagCounter={setFlagCounter}
             />
             {/*<Test />*/}
         </div>

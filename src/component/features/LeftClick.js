@@ -1,35 +1,62 @@
 import Config from "./Config";
 class LeftClick{
-    constructor(clicked, props) {
+    constructor(clicked, props, event) {
         this.clicked = clicked
         this.props = props
+        this.event = event
 
-        this.checkLeftClick()
+        //this.checkLeftClick()
+        this.check()
+    }
+    check() {
+        let target = this.event.target
+        if (!target.classList.contains('flag')) {
+            this.checkLeftClick()
+        }
     }
     checkLeftClick() {
-        if (this.clicked === true) {
-            let indexNumber = this.props.index
-            let index = 'index-' + indexNumber
-            let allCells = document.querySelectorAll('.cell')
-            allCells.forEach((item) => {
-                if (item.classList.contains(index)) {
-                    //console.log('here is ', index)
-                    let number = item.dataset.number
-                    if (number === '0') {
-                        item.classList.add('cell-opened')
-                        let x = Number(this.props.x)
-                        let y = Number(this.props.y)
-                        this.openAround(x, y)
-                    } else if (number !== '9') {
-                        item.classList.add('cell-opened')
-                    } else {
-                        //console.log('bomb! you clicked!')
-                    }
-                    if (number === '9') {
-                        //console.log("clicked bomb!")
-                    }
-                }
-            })
+        // if (this.clicked === true) {
+        //     let indexNumber = this.props.index
+        //     let index = 'index-' + indexNumber
+        //     let allCells = document.querySelectorAll('.cell')
+        //     allCells.forEach((item) => {
+        //         if (item.classList.contains(index)) {
+        //             //console.log('here is ', index)
+        //             let number = item.dataset.number
+        //             if (number === '0') {
+        //                 item.classList.add('cell-opened')
+        //                 let x = Number(this.props.x)
+        //                 let y = Number(this.props.y)
+        //                 this.openAround(x, y)
+        //             } else if (number !== '9') {
+        //                 item.classList.add('cell-opened')
+        //             } else {
+        //                 //console.log('bomb! you clicked!')
+        //             }
+        //             if (number === '9') {
+        //                 item.classList.add('bomb-clicked')
+        //             }
+        //         }
+        //     })
+        // }
+        let target = this.event.target
+        let flag = target.children[2]
+        console.log('left click flag:', flag)
+        if (this.clicked === true && flag.classList.contains('flag-hide')) {
+            let number = target.dataset.number
+            if (number === '0') {
+                target.classList.add('cell-opened')
+                let x = Number(this.props.x)
+                let y = Number(this.props.y)
+                this.openAround(x, y)
+            } else if (number !== '9' && flag.classList.contains('flag-hide')) {
+                target.classList.add('cell-opened')
+            } else {
+                //console.log('bomb! you clicked!')
+            }
+            if (number === '9' && flag.classList.contains('flag-hide')) {
+                target.classList.add('bomb-clicked')
+            }
         }
     }
     async openAround(x, y) {
@@ -86,7 +113,8 @@ class LeftClick{
         aroundCells.forEach( (item) => {
             var newAroundZeroCells = []
             let number = item.dataset.number
-            if (number !== '9' && !item.classList.contains('cell-opened')) {
+            let itemFlag = item.children[2]
+            if (number !== '9' && !item.classList.contains('cell-opened') && itemFlag.classList.contains('flag-hide')) {
                 //console.log('if in', 'item:', item)
                 item.classList.add('cell-opened')
                 if (number === '0') {

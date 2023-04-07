@@ -1,3 +1,4 @@
+import React, {useState} from "react";
 
 //custom
 import "../index.css"
@@ -11,19 +12,23 @@ import config from "./features/Config";
 
 function Board(appProps) {
 
-    async function leftClicks (clicked, props) {
+    async function leftClicks (clicked, props, event) {
+        let target = event.target
+        let flag = target.children[2]
         if (clicked === true) {
             appProps.setGameStart(true)
         }
         config.gameBoard.startSquareArray = []
+        await appProps.setStartTimer(true)
         await new Game(appProps.gameStart, appProps.setSquareArray, props, config, Utility)
-        await new LeftClick(clicked, props)
-        if (props.number === 9) {
-            appProps.clickedBomb()
+        await new LeftClick(clicked, props, event)
+        if (props.number === 9 && flag.classList.contains('flag-hide')) {
+            appProps.setClickedBomb(true)
+            appProps.gameOver()
         }
     }
 
-    console.log("gameStarted: ", appProps.gameStart, "currentSquareArray: ", appProps.squareArray)
+    //console.log("gameStarted: ", appProps.gameStart, "currentSquareArray: ", appProps.squareArray)
 
     return(
         <div className="board">
@@ -40,6 +45,8 @@ function Board(appProps) {
                                 x={rowIndex}
                                 y={colIndex}
                                 startGame={appProps.gameStart}
+                                clickedBomb={appProps.clickedBomb}
+                                setFlagCounter={appProps.setFlagCounter}
                             />
                         )
                     })
