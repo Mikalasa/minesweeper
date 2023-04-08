@@ -1,13 +1,13 @@
 import config from "./Config";
 
 class Game {
-    constructor(gameStart, setSquareArray, props, config, Utility) {
+    constructor(gameStart, setSquareArray, props, config, Utility, clickedIndex) {
         this.gameBoard = config.gameBoard
         this.props = props
         this.gameStart = gameStart
         this.setSquareArray = setSquareArray
         this.coordIndex = this.props.coordIndex
-        this.clickedCellIndex = this.props.clickedCellIndex
+        this.clickedCellIndex = clickedIndex
         this.cells = this.gameBoard.cells
         this.row = this.gameBoard.row
         this.col = this.gameBoard.col
@@ -47,17 +47,31 @@ class Game {
             cells[randomIndex] = cells[i]
             cells[i] = itemIndex
         }
+        //console.log("before insertCell:", cells)
         cells.splice(this.clickedCellIndex, 0, 0)
+        //console.log("after insertCell:", cells)
+        var checkAmountOfNine = () => {
+            let n = []
+            cells.forEach((item) => {
+                if (item === 9) {
+                    n.push(item)
+                }
+            })
+            console.log('number of 9:', n.length)
+        }
+        checkAmountOfNine()
         this.squareArraySplite()
         return cells
     }
 
-    //init squareArray
+    //make squareArray
     squareArraySplite() {
         for (let i = 0; i < this.col; i ++) {
             let sub = this.cells.splice(0, this.row)
             this.startSquareArray.push(sub)
         }
+        //console.log("squareArray:", this.startSquareArray)
+
         //set number around the mines
         this.Utility.prototype.markedSquare(this.startSquareArray, this.coordIndex)
     }

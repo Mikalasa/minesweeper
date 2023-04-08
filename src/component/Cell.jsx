@@ -1,53 +1,44 @@
 import React from "react";
 
-//custom
-import "../index.css"
+//custom js
 import RightClick from "./features/RightClick";
 
 function Cell(props) {
     var clicked = false
     var number = props.number
+    var flagPath = './svg/flag.svg'
 
     if (props.number === 9) {
-        var src = "./Svgs/bomb.svg"
-    }
-    if (props.clickedBomb) {
-        var className = ' '
-    } else {
-        var className = 'bomb-hide'
+        var src = "./svg/bomb.svg"
     }
 
-    function handleClick(event) {
-        console.log('left click event:', event.target)
-        if (clicked === false) {
+    function handleLeftClick(event) {
+        //console.log('left click event:', event.target)
+        if (clicked === false && !event.target.classList.contains('flag')) {
             clicked = true
             //console.log('props.coordIndex: ', props.coordIndex, 'cellIndex: ', props.index)
-            props.leftClick(clicked, props, event)
+            props.leftClick(clicked, props, event, props.index)
         }
         if (clicked === true && props.startGame === false) {
             clicked = false
         }
     }
 
-    function handleRightClick(event) {
-        // if (props.startGame === true) {
-        //     event.preventDefault()
-        //     //console.log('right click event:', event.target)
-        //     new RightClick(event, props.setFlagCounter)
-        // }
+    async function handleRightClick(event) {
         event.preventDefault()
-        new RightClick(event, props.setFlagCounter)
+        await new RightClick(event, props.setFlagCounter)
+        await props.checkWinCallback()
     }
 
     if (props.number === 9) {
         return(
             <div className={'cell' + ' ' + 'cell-hide' + ' ' + 'index-' + props.index + ' ' + 'bomb'} data-number={number} data-x={props.x} data-y={props.y}
-                 onClick={handleClick} onContextMenu={handleRightClick}><img src={src} className={className}/><span></span><img class='flag flag-hide' src='./Svgs/flag.svg'/></div>
+                 onClick={handleLeftClick} onContextMenu={handleRightClick}><img className={'bomb' + ' ' + 'bomb-hide'} src={src}/><span></span><img className={'flag flag-hide'} src={flagPath}/></div>
         );
     } else {
         return(
             <div className={'cell' + ' ' + 'cell-hide' + ' ' + 'index-' + props.index} data-number={number} data-x={props.x} data-y={props.y}
-                 onClick={handleClick} onContextMenu={handleRightClick}><img src={src} /><span>{number}</span><img className={'flag flag-hide'} src='./Svgs/flag.svg'/></div>
+                 onClick={handleLeftClick} onContextMenu={handleRightClick}><img src={src} /><span>{number}</span><img className={'flag flag-hide'} src={flagPath}/></div>
         );
     }
 }

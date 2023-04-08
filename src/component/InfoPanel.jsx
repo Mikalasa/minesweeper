@@ -1,7 +1,5 @@
 import React, {useEffect} from 'react';
 
-//custom JS
-
 function InfoPanel(appProps) {
 
     function clickEmoji() {

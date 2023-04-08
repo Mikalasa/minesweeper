@@ -1,31 +1,34 @@
-import React, {useState} from "react";
+import React, {useEffect} from "react";
 
 //custom
-import "../index.css"
 import Cells from "./Cell";
 
 //custom JS
+import config from "./features/Config";
 import Game from "./features/Game";
 import Utility from "./features/Utility";
 import LeftClick from "./features/LeftClick";
-import config from "./features/Config";
 
 function Board(appProps) {
 
-    async function leftClicks (clicked, props, event) {
+    async function leftClicks (clicked, props, event, clickedIndex) {
         let target = event.target
         let flag = target.children[2]
         if (clicked === true) {
-            appProps.setGameStart(true)
+            await appProps.setGameStart(true)
         }
         config.gameBoard.startSquareArray = []
         await appProps.setStartTimer(true)
-        await new Game(appProps.gameStart, appProps.setSquareArray, props, config, Utility)
+        await new Game(appProps.gameStart, appProps.setSquareArray, props, config, Utility, clickedIndex)
         await new LeftClick(clicked, props, event)
         if (props.number === 9 && flag.classList.contains('flag-hide')) {
             appProps.setClickedBomb(true)
             appProps.gameOver()
         }
+    }
+
+    function checkWinCallback() {
+        appProps.checkWin()
     }
 
     //console.log("gameStarted: ", appProps.gameStart, "currentSquareArray: ", appProps.squareArray)
@@ -35,25 +38,33 @@ function Board(appProps) {
             {appProps.squareArray.map((value, rowIndex) => {
                 var times = rowIndex
                 return(
-                    value.map((number, colIndex)=> {
-                        return(
-                            <Cells
-                                number={number}
-                                index={times * value.length + colIndex}
-                                coordIndex={{rowIndex, colIndex}}
-                                leftClick={leftClicks}
-                                x={rowIndex}
-                                y={colIndex}
-                                startGame={appProps.gameStart}
-                                clickedBomb={appProps.clickedBomb}
-                                setFlagCounter={appProps.setFlagCounter}
-                            />
-                        )
-                    })
+                    <div className={"row" + " " + "row-" + rowIndex}>
+                        {
+                            value.map((number, colIndex)=> {
+                                return(
+                                    <Cells
+                                        number={number}
+                                        index={times * value.length + colIndex}
+                                        coordIndex={{rowIndex, colIndex}}
+                                        leftClick={leftClicks}
+                                        x={rowIndex}
+                                        y={colIndex}
+                                        startGame={appProps.gameStart}
+                                        clickedBomb={appProps.clickedBomb}
+                                        setFlagCounter={appProps.setFlagCounter}
+                                        checkWinCallback={checkWinCallback}
+                                    />
+                                )
+                            })
+                        }
+                    </div>
                 )
             })}
         </div>
-    );
+    )
 }
 
 export default Board
+
+
+//
