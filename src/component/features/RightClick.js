@@ -37,7 +37,7 @@ export default class RightClick {
                 }
             }
         }
-        this.checkCounter()
+        //this.checkCounter()
     }
     checkCounter() {
         let allFlags = document.querySelectorAll('.flag')
@@ -49,8 +49,9 @@ export default class RightClick {
         })
         if (config.gameBoard.flags < insertedFlag.length) {
 
-        } else {
-            this.setFlagCounter(config.gameBoard.flags - insertedFlag.length)
         }
+        // else {
+        //     this.setFlagCounter(config.gameBoard.flags - insertedFlag.length)
+        // }
     }
 }

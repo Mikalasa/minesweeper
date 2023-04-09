@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 
 //custom
 import Cells from "./Cell";
@@ -18,9 +18,9 @@ function Board(appProps) {
             await appProps.setGameStart(true)
         }
         config.gameBoard.startSquareArray = []
-        await appProps.setStartTimer(true)
         await new Game(appProps.gameStart, appProps.setSquareArray, props, config, Utility, clickedIndex)
         await new LeftClick(clicked, props, event)
+        await appProps.setStartTimer(true)
         if (props.number === 9 && flag.classList.contains('flag-hide')) {
             appProps.setClickedBomb(true)
             appProps.gameOver()
@@ -28,6 +28,7 @@ function Board(appProps) {
     }
 
     function checkWinCallback() {
+        //console.log('appProps.callbackFunction():', appProps.callbackFunction())
         appProps.checkWin()
     }
 
@@ -51,7 +52,7 @@ function Board(appProps) {
                                         y={colIndex}
                                         startGame={appProps.gameStart}
                                         clickedBomb={appProps.clickedBomb}
-                                        setFlagCounter={appProps.setFlagCounter}
+                                        //setFlagCounter={appProps.setFlagCounter}
                                         checkWinCallback={checkWinCallback}
                                     />
                                 )

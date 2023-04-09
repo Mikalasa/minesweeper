@@ -17,14 +17,15 @@ function App() {
     const [message, setMessage] = useState('Mine Sweeper');
     const [emoji, setEmoji] = useState('./svg/emoji.svg');
     const [squareArray, setSquareArray] = useState(config.gameBoard.noStartGameArray);
-    const [timer, setTimer] = useState(config.gameBoard.timer);
-    const [flagCounter, setFlagCounter] = useState(config.gameBoard.flags);
+    //const [timer, setTimer] = useState(config.gameBoard.timer);
+    //const [flagCounter, setFlagCounter] = useState(config.gameBoard.flags);
     const [initEnable, setInitEnable] = useState(true);
     const [lose, setLose] = useState(false);
     const [gameStart, setGameStart] = useState(false);
     const [startTimer, setStartTimer] = useState(false);
     const [clickedBomb, setClickedBomb] = useState(false);
     const [flagFlicker, setFlagFlicker] = useState(false);
+
 
     function initGame() {
         if (initEnable === true) {
@@ -51,8 +52,8 @@ function App() {
         await setClickedBomb(false)
         await setFlagFlicker(false)
         await setSquareArray(config.gameBoard.noStartGameArray)
-        await setTimer(config.gameBoard.timer)
-        await setFlagCounter(config.gameBoard.flags)
+        //await setTimer(config.gameBoard.timer)
+        //await setFlagCounter(config.gameBoard.flags)
         await new GameOver().cleanClasses(config.gameBoard.flags)
     }
 
@@ -123,16 +124,16 @@ function App() {
                 message={message}
                 emoji={emoji}
                 lose={lose}
-                timer={timer}
-                flagCounter={flagCounter}
+                //timer={timer}
+                //flagCounter={flagCounter}
                 startTimer={startTimer}
 
-                setTimer={setTimer}
-
+                //setTimer={setTimer}
             />
             <Board
                 gameOver={gameOver}
                 checkWin={checkWin}
+                //callbackFunction={callbackFunction}
 
                 gameStart={gameStart}
                 squareArray={squareArray}
@@ -140,14 +141,13 @@ function App() {
                 clickedBomb={clickedBomb}
 
                 setClickedBomb={setClickedBomb}
-                setFlagCounter={setFlagCounter}
+                //setFlagCounter={setFlagCounter}
                 setLose={setLose}
                 setGameStart={setGameStart}
                 setSquareArray={setSquareArray}
                 setStartTimer={setStartTimer}
             />
         </div>
-
     );
 }
 

@@ -12,6 +12,7 @@ function Cell(props) {
         var src = "./svg/bomb.svg"
     }
 
+
     function handleLeftClick(event) {
         //console.log('left click event:', event.target)
         if (clicked === false && !event.target.classList.contains('flag')) {
@@ -26,7 +27,8 @@ function Cell(props) {
 
     async function handleRightClick(event) {
         event.preventDefault()
-        await new RightClick(event, props.setFlagCounter)
+        //await new RightClick(event, props.setFlagCounter)
+        await new RightClick(event)
         await props.checkWinCallback()
     }
 
