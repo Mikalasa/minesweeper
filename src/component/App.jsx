@@ -17,15 +17,19 @@ function App() {
     const [message, setMessage] = useState('Mine Sweeper');
     const [emoji, setEmoji] = useState('./svg/emoji.svg');
     const [squareArray, setSquareArray] = useState(config.gameBoard.noStartGameArray);
-    //const [timer, setTimer] = useState(config.gameBoard.timer);
-    //const [flagCounter, setFlagCounter] = useState(config.gameBoard.flags);
     const [initEnable, setInitEnable] = useState(true);
     const [lose, setLose] = useState(false);
     const [gameStart, setGameStart] = useState(false);
-    const [startTimer, setStartTimer] = useState(false);
     const [clickedBomb, setClickedBomb] = useState(false);
     const [flagFlicker, setFlagFlicker] = useState(false);
+    const [resetKey1, setResetKey1] = useState(0)
+    const [resetKey2, setResetKey2] = useState(1)
 
+
+    const handleReset = () => {
+        setResetKey1((prevKey) => prevKey + 1);
+        setResetKey2((prevKey) => prevKey + 1);
+    }
 
     function initGame() {
         if (initEnable === true) {
@@ -34,12 +38,11 @@ function App() {
         }
     }
     function gameOver() {
-        console.log("clicked bomb!")
         setMessage('Game lose, click emoji to restart')
         setEmoji('./svg/deadEmoji.svg')
         setLose(true)
         setGameStart(false)
-        setStartTimer(false)
+        //setStartTimer(false)
         setFlagFlicker(true)
         new GameOver()
     }
@@ -52,9 +55,8 @@ function App() {
         await setClickedBomb(false)
         await setFlagFlicker(false)
         await setSquareArray(config.gameBoard.noStartGameArray)
-        //await setTimer(config.gameBoard.timer)
-        //await setFlagCounter(config.gameBoard.flags)
-        await new GameOver().cleanClasses(config.gameBoard.flags)
+        await new GameOver().cleanClasses()
+        await handleReset()
     }
 
     function onTimeUp() {
@@ -66,16 +68,16 @@ function App() {
         setMessage('Game win!, click emoji to play!')
         setEmoji('./svg/emojiWin.svg')
         setGameStart(false)
-        setStartTimer(false)
+        //setStartTimer(false)
     }
 
     function checkWin() {
-        let allFlags = document.querySelectorAll('.flag')
+        let allInsertFlags = document.querySelectorAll('.flag-open')
         let allBombs = document.querySelectorAll('.bomb')
         let allInsertedOnBombFlag = []
-        allFlags.forEach((item) => {
+        allInsertFlags.forEach((item) => {
             let flagParent = item.parentElement
-            if (flagParent.classList.contains('bomb') && !item.classList.contains('flag-hide')) {
+            if (flagParent.classList.contains('bomb') && item.classList.contains('flag-open')) {
                 allInsertedOnBombFlag.push(item)
             }
         })
@@ -85,67 +87,39 @@ function App() {
         }
     }
 
-    useEffect(() => {
-        if (flagFlicker === false) {
-            return
-        }
-        let allCells = document.querySelectorAll('.cell')
-        let flagedNoBombCell =[]
-        allCells.forEach((item) => {
-            let itemFlag = item.children[2]
-            if (!item.classList.contains('bomb') && !itemFlag.classList.contains('flag-hide')) {
-                flagedNoBombCell.push(item)
-            }
-        })
-        const showNoBombFlagFlick = setInterval(() => {
-            flagedNoBombCell.forEach((item) => {
-                item.children[2].classList.add('flag-hide');
-                item.classList.add('cell-opened');
-                setTimeout(() => {
-                    item.classList.remove('cell-opened');
-                    item.children[2].classList.remove('flag-hide');
-                }, 500);
-            });
-        }, 1000);
-
-        return () => {
-            clearInterval(showNoBombFlagFlick);
-        };
-    }, [flagFlicker]);
-
     initGame()
 
     return (
         <div id="canvas">
             <InfoPanel
+                key={resetKey1}
+
                 restartGame={restartGame}
                 onTimeUp={onTimeUp}
 
                 message={message}
                 emoji={emoji}
                 lose={lose}
-                //timer={timer}
-                //flagCounter={flagCounter}
-                startTimer={startTimer}
+                gameStart={gameStart}
 
-                //setTimer={setTimer}
             />
             <Board
+                key={resetKey2}
+
                 gameOver={gameOver}
                 checkWin={checkWin}
-                //callbackFunction={callbackFunction}
 
                 gameStart={gameStart}
                 squareArray={squareArray}
                 lose={lose}
                 clickedBomb={clickedBomb}
+                flagFlicker={flagFlicker}
+                initEnable={initEnable}
 
                 setClickedBomb={setClickedBomb}
-                //setFlagCounter={setFlagCounter}
                 setLose={setLose}
                 setGameStart={setGameStart}
                 setSquareArray={setSquareArray}
-                setStartTimer={setStartTimer}
             />
         </div>
     );

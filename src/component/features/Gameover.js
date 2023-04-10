@@ -20,11 +20,9 @@ class GameOver {
                 item.classList.remove('ban')
             }
         })
-        var flags = document.querySelectorAll('.flag')
-        flags.forEach((item) => {
-            if (!item.classList.contains('flag-hide')) {
-                item.classList.add('flag-hide')
-            }
+        var openedFlags = document.querySelectorAll('.flag-open')
+        openedFlags.forEach((item) => {
+            item.classList.remove('flag-open')
         })
     }
     banRightClick() {
@@ -35,7 +33,7 @@ class GameOver {
             if (item.classList.contains('bomb')) {
                 let bomb = item.children[0]
                 let flag = item.children[2]
-                if (flag.classList.contains('flag-hide')) {
+                if (!flag.classList.contains('flag-open')) {
                     bomb.classList.remove('bomb-hide')
                 }
             }

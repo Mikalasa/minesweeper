@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 
 //custom
 import Cells from "./Cell";
@@ -8,6 +8,7 @@ import config from "./features/Config";
 import Game from "./features/Game";
 import Utility from "./features/Utility";
 import LeftClick from "./features/LeftClick";
+import GameOver from "./features/Gameover";
 
 function Board(appProps) {
 
@@ -20,8 +21,7 @@ function Board(appProps) {
         config.gameBoard.startSquareArray = []
         await new Game(appProps.gameStart, appProps.setSquareArray, props, config, Utility, clickedIndex)
         await new LeftClick(clicked, props, event)
-        await appProps.setStartTimer(true)
-        if (props.number === 9 && flag.classList.contains('flag-hide')) {
+        if (props.number === 9 && !flag.classList.contains('flag-open')) {
             appProps.setClickedBomb(true)
             appProps.gameOver()
         }
@@ -31,6 +31,37 @@ function Board(appProps) {
         //console.log('appProps.callbackFunction():', appProps.callbackFunction())
         appProps.checkWin()
     }
+
+    useEffect(() => {
+        if (appProps.flagFlicker === false) {
+            return
+        }
+        if (appProps.initEnable === true) {
+            new GameOver().cleanClasses()
+        }
+        let allCells = document.querySelectorAll('.cell')
+        let flagedNoBombCell =[]
+        allCells.forEach((item) => {
+            let itemFlag = item.children[2]
+            if (!item.classList.contains('bomb') && itemFlag.classList.contains('flag-open')) {
+                flagedNoBombCell.push(item)
+            }
+        })
+        const showNoBombFlagFlick = setInterval(() => {
+            flagedNoBombCell.forEach((item) => {
+                item.children[2].classList.remove('flag-open');
+                item.classList.add('cell-opened');
+                setTimeout(() => {
+                    item.classList.remove('cell-opened');
+                    item.children[2].classList.add('flag-open');
+                }, 500);
+            });
+        }, 1000);
+
+        return () => {
+            clearInterval(showNoBombFlagFlick);
+        };
+    }, [appProps.flagFlicker, appProps.initEnable]);
 
     //console.log("gameStarted: ", appProps.gameStart, "currentSquareArray: ", appProps.squareArray)
 
@@ -52,7 +83,6 @@ function Board(appProps) {
                                         y={colIndex}
                                         startGame={appProps.gameStart}
                                         clickedBomb={appProps.clickedBomb}
-                                        //setFlagCounter={appProps.setFlagCounter}
                                         checkWinCallback={checkWinCallback}
                                     />
                                 )

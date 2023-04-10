@@ -49,11 +49,13 @@
     border-color: #999;
 }
 .flag {
+    /*display: none;*/
+    height: 0px;
+    width: 0px;
+}
+.flag-open {
     height: 32px;
     width: 32px;
-}
-.flag-hide {
-    display: none;
 }
 .bomb {
     height: 36px;

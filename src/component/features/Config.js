@@ -7,7 +7,7 @@ var config = {
         cells: [],
         noStartGameArray: [],
         startSquareArray: [],
-        timer: 1000,
+        timer: 60,
     },
     int: {
         row: 13,

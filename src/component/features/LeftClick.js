@@ -18,19 +18,19 @@ class LeftClick{
         let target = this.event.target
         let flag = target.children[2]
         //console.log('left click flag:', flag)
-        if (this.clicked === true && flag.classList.contains('flag-hide')) {
+        if (this.clicked === true && !flag.classList.contains('flag-open')) {
             let number = target.dataset.number
             if (number === '0') {
                 target.classList.add('cell-opened')
                 let x = Number(this.props.x)
                 let y = Number(this.props.y)
                 this.openAround(x, y)
-            } else if (number !== '9' && flag.classList.contains('flag-hide')) {
+            } else if (number !== '9' && !flag.classList.contains('flag-open')) {
                 target.classList.add('cell-opened')
             } else {
                 //console.log('bomb! you clicked!')
             }
-            if (number === '9' && flag.classList.contains('flag-hide')) {
+            if (number === '9' && !flag.classList.contains('flag-open')) {
                 target.classList.add('bomb-clicked')
             }
         }
@@ -57,7 +57,7 @@ class LeftClick{
             let newAroundZeroCells = [];
             let number = item.dataset.number;
             let itemFlag = item.children[2];
-            if (number !== '9' && !item.classList.contains('cell-opened') && itemFlag.classList.contains('flag-hide')) {
+            if (number !== '9' && !item.classList.contains('cell-opened') && !itemFlag.classList.contains('flag-open')) {
                 item.classList.add('cell-opened');
                 if (number === '0') {
                     newAroundZeroCells.push(item);

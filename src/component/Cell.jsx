@@ -12,7 +12,6 @@ function Cell(props) {
         var src = "./svg/bomb.svg"
     }
 
-
     function handleLeftClick(event) {
         //console.log('left click event:', event.target)
         if (clicked === false && !event.target.classList.contains('flag')) {
@@ -27,7 +26,6 @@ function Cell(props) {
 
     async function handleRightClick(event) {
         event.preventDefault()
-        //await new RightClick(event, props.setFlagCounter)
         await new RightClick(event)
         await props.checkWinCallback()
     }
@@ -35,12 +33,12 @@ function Cell(props) {
     if (props.number === 9) {
         return(
             <div className={'cell' + ' ' + 'cell-hide' + ' ' + 'index-' + props.index + ' ' + 'bomb'} data-number={number} data-x={props.x} data-y={props.y}
-                 onClick={handleLeftClick} onContextMenu={handleRightClick}><img className={'bomb' + ' ' + 'bomb-hide'} src={src}/><span></span><img className={'flag flag-hide'} src={flagPath}/></div>
+                 onClick={handleLeftClick} onContextMenu={handleRightClick}><img className={'bomb' + ' ' + 'bomb-hide'} src={src}/><span></span><img className={'flag'} src={flagPath}/></div>
         );
     } else {
         return(
             <div className={'cell' + ' ' + 'cell-hide' + ' ' + 'index-' + props.index} data-number={number} data-x={props.x} data-y={props.y}
-                 onClick={handleLeftClick} onContextMenu={handleRightClick}><img src={src} /><span>{number}</span><img className={'flag flag-hide'} src={flagPath}/></div>
+                 onClick={handleLeftClick} onContextMenu={handleRightClick}><img src={src} /><span>{number}</span><img className={'flag'} src={flagPath}/></div>
         );
     }
 }

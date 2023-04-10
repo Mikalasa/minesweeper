@@ -1,15 +1,14 @@
 import config from "./Config";
-export default class RightClick {
-    constructor(event, setFlagCounter) {
+class RightClick {
+    constructor(event) {
         this.event = event
-        this.setFlagCounter = setFlagCounter
         this.countFlag()
     }
     countFlag() {
         let allFlags = document.querySelectorAll('.flag')
         let allInsertedFlag = []
         allFlags.forEach((item) => {
-            if (!item.classList.contains('flag-hide')) {
+            if (item.classList.contains('flag-open')) {
                 allInsertedFlag.push(item)
             }
         })
@@ -21,37 +20,23 @@ export default class RightClick {
             let newTarget = target.parentElement
             if (!newTarget.classList.contains('cell-opened')){
                 let flag = newTarget.children[2]
-                if (flag.classList.contains('flag-hide') && config.gameBoard.flags > allInsertedFlag.length) {
-                    flag.classList.remove('flag-hide')
+                if (!flag.classList.contains('flag-open') && config.gameBoard.flags > allInsertedFlag.length) {
+                    flag.classList.add('flag-open')
                 } else {
-                    flag.classList.add('flag-hide')
+                    flag.classList.remove('flag-open')
                 }
             }
         } else {
             if (!target.classList.contains('cell-opened')) {
                 let flag = target.children[2]
-                if (flag.classList.contains('flag-hide') && config.gameBoard.flags > allInsertedFlag.length) {
-                    flag.classList.remove('flag-hide')
+                if (!flag.classList.contains('flag-open') && config.gameBoard.flags > allInsertedFlag.length) {
+                    flag.classList.add('flag-open')
                 } else {
-                    flag.classList.add('flag-hide')
+                    flag.classList.remove('flag-open')
                 }
             }
         }
-        //this.checkCounter()
-    }
-    checkCounter() {
-        let allFlags = document.querySelectorAll('.flag')
-        let insertedFlag = []
-        allFlags.forEach((item) => {
-            if (!item.classList.contains('flag-hide')) {
-                insertedFlag.push(item)
-            }
-        })
-        if (config.gameBoard.flags < insertedFlag.length) {
-
-        }
-        // else {
-        //     this.setFlagCounter(config.gameBoard.flags - insertedFlag.length)
-        // }
     }
 }
+
+export default RightClick
