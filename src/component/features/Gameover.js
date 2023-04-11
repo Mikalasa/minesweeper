@@ -11,7 +11,6 @@ class GameOver {
         })
     }
     cleanClasses() {
-        console.log('i am cleaning')
         this.allCells.forEach((item) => {
             if (item.classList.contains('cell-opened')) {
                 item.classList.remove('cell-opened')

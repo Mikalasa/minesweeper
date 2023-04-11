@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 
-//custom
+//custom React
 import Cells from "./Cell";
 
 //custom JS
@@ -8,7 +8,6 @@ import config from "./features/Config";
 import Game from "./features/Game";
 import Utility from "./features/Utility";
 import LeftClick from "./features/LeftClick";
-import GameOver from "./features/Gameover";
 
 function Board(appProps) {
 
@@ -28,16 +27,12 @@ function Board(appProps) {
     }
 
     function checkWinCallback() {
-        //console.log('appProps.callbackFunction():', appProps.callbackFunction())
         appProps.checkWin()
     }
 
     useEffect(() => {
         if (appProps.flagFlicker === false) {
             return
-        }
-        if (appProps.initEnable === true) {
-            new GameOver().cleanClasses()
         }
         let allCells = document.querySelectorAll('.cell')
         let flagedNoBombCell =[]
@@ -61,9 +56,7 @@ function Board(appProps) {
         return () => {
             clearInterval(showNoBombFlagFlick);
         };
-    }, [appProps.flagFlicker, appProps.initEnable]);
-
-    //console.log("gameStarted: ", appProps.gameStart, "currentSquareArray: ", appProps.squareArray)
+    }, [appProps.flagFlicker]);
 
     return(
         <div className="board">
@@ -75,15 +68,18 @@ function Board(appProps) {
                             value.map((number, colIndex)=> {
                                 return(
                                     <Cells
+                                        key={times * value.length + colIndex}
                                         number={number}
                                         index={times * value.length + colIndex}
                                         coordIndex={{rowIndex, colIndex}}
-                                        leftClick={leftClicks}
                                         x={rowIndex}
                                         y={colIndex}
+
                                         startGame={appProps.gameStart}
                                         clickedBomb={appProps.clickedBomb}
+
                                         checkWinCallback={checkWinCallback}
+                                        leftClick={leftClicks}
                                     />
                                 )
                             })

@@ -2,12 +2,20 @@ var config = {
     gameBoard: {
         row: 9,
         col: 9,
-        mines: 10,
-        flags: 40,
+        mines: 1,
+        flags: 2,
         cells: [],
         noStartGameArray: [],
         startSquareArray: [],
-        timer: 60,
+    },
+    nor: {
+        row: 9,
+        col: 9,
+        mines: 10,
+        flags: 10,
+        cells: [],
+        noStartGameArray: [],
+        startSquareArray: [],
     },
     int: {
         row: 13,
@@ -17,18 +25,17 @@ var config = {
         cells: [],
         noStartGameArray: [],
         startSquareArray: [],
-        timer: 180,
     },
-    adv: {
+    exp: {
         row: 16,
         col: 16,
-        mines: 40,
-        flags: 40,
+        mines: 30,
+        flags: 30,
         cells: [],
         noStartGameArray: [],
         startSquareArray: [],
-        timer: 360,
     }
+
 }
 
 export default config

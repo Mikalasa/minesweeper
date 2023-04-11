@@ -1,7 +1,6 @@
-//React
 import React, {useEffect, useState} from "react";
 
-//custom
+//custom React
 import Board from "./Board"
 import InfoPanel from "./InfoPanel";
 
@@ -12,12 +11,14 @@ import GameOver from "./features/Gameover";
 
 //custom css
 import "../index.css"
+import Level from "./Level";
 
 function App() {
+    const [configGame, setConfigGame] = useState(config.gameBoard);
     const [message, setMessage] = useState('Mine Sweeper');
     const [emoji, setEmoji] = useState('./svg/emoji.svg');
-    const [squareArray, setSquareArray] = useState(config.gameBoard.noStartGameArray);
-    const [initEnable, setInitEnable] = useState(true);
+    const [squareArray, setSquareArray] = useState(configGame.noStartGameArray);
+    const [initGameEnable, setInitGameEnable] = useState(true);
     const [lose, setLose] = useState(false);
     const [gameStart, setGameStart] = useState(false);
     const [clickedBomb, setClickedBomb] = useState(false);
@@ -32,9 +33,9 @@ function App() {
     }
 
     function initGame() {
-        if (initEnable === true) {
+        if (initGameEnable === true && gameStart === false) {
             new InitCells(config)
-            setInitEnable(false)
+            setInitGameEnable(false)
         }
     }
     function gameOver() {
@@ -42,7 +43,6 @@ function App() {
         setEmoji('./svg/deadEmoji.svg')
         setLose(true)
         setGameStart(false)
-        //setStartTimer(false)
         setFlagFlicker(true)
         new GameOver()
     }
@@ -51,7 +51,7 @@ function App() {
         await setMessage('Mine Sweeper')
         await setEmoji('./svg/emoji.svg')
         await setLose(false)
-        await setInitEnable(true)
+        await setInitGameEnable(true)
         await setClickedBomb(false)
         await setFlagFlicker(false)
         await setSquareArray(config.gameBoard.noStartGameArray)
@@ -59,16 +59,10 @@ function App() {
         await handleReset()
     }
 
-    function onTimeUp() {
-        gameOver()
-        setFlagFlicker(true)
-    }
-
     function winTheGame() {
         setMessage('Game win!, click emoji to play!')
         setEmoji('./svg/emojiWin.svg')
         setGameStart(false)
-        //setStartTimer(false)
     }
 
     function checkWin() {
@@ -91,11 +85,13 @@ function App() {
 
     return (
         <div id="canvas">
+            <Level
+                setConfigGame={setConfigGame}
+            />
             <InfoPanel
                 key={resetKey1}
 
                 restartGame={restartGame}
-                onTimeUp={onTimeUp}
 
                 message={message}
                 emoji={emoji}
@@ -114,7 +110,6 @@ function App() {
                 lose={lose}
                 clickedBomb={clickedBomb}
                 flagFlicker={flagFlicker}
-                initEnable={initEnable}
 
                 setClickedBomb={setClickedBomb}
                 setLose={setLose}

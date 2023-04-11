@@ -1,4 +1,6 @@
 import React, {useState, useEffect} from "react";
+
+//custom JS
 import config from "./features/Config";
 import checkCounter from "./features/FlagCounter";
 

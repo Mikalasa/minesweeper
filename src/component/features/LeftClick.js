@@ -17,7 +17,6 @@ class LeftClick{
     checkLeftClick() {
         let target = this.event.target
         let flag = target.children[2]
-        //console.log('left click flag:', flag)
         if (this.clicked === true && !flag.classList.contains('flag-open')) {
             let number = target.dataset.number
             if (number === '0') {
@@ -63,7 +62,6 @@ class LeftClick{
                     newAroundZeroCells.push(item);
                 }
             }
-
             newAroundZeroCells.forEach((item) => {
                 let cell = item;
                 let x = Number(cell.dataset.x);

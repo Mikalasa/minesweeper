@@ -13,10 +13,8 @@ function Cell(props) {
     }
 
     function handleLeftClick(event) {
-        //console.log('left click event:', event.target)
         if (clicked === false && !event.target.classList.contains('flag')) {
             clicked = true
-            //console.log('props.coordIndex: ', props.coordIndex, 'cellIndex: ', props.index)
             props.leftClick(clicked, props, event, props.index)
         }
         if (clicked === true && props.startGame === false) {

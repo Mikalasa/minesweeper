@@ -1,4 +1,6 @@
 import React from 'react';
+
+//custom React
 import Timer from "./Timer";
 import FlagCounter from "./FlagCounter";
 
@@ -18,7 +20,7 @@ function InfoPanel(appProps) {
                     lose={appProps.lose}
                 />
                 <div id="js-smiley" className="smiley">
-                    <img onClick={clickEmoji} src={appProps.emoji} className="emoji normal" id="emoji1"/>
+                    <img onClick={clickEmoji} src={appProps.emoji} className="emoji normal"/>
                 </div>
                 <Timer
                     onTimeUp={appProps.onTimeUp}

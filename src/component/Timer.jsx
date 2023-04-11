@@ -1,19 +1,14 @@
 import React, { useState, useEffect } from "react";
-import config from "./features/Config";
 function Timer(props) {
-    const [timer, setTimer] = useState(config.gameBoard.timer);
+    const [timer, setTimer] = useState(0);
 
     useEffect(() => {
         if (props.gameStart === false) {
             return;
         }
 
-        if (timer <= 0) {
-            props.onTimeUp();
-        }
-
         const timerId = setInterval(() => {
-            setTimer((prevCount) => prevCount - 1);
+            setTimer((prevCount) => prevCount + 1);
         }, 1000);
 
         return () => {
