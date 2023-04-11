@@ -4,26 +4,40 @@ import React, { useState, useEffect } from "react";
 import config from "./features/Config";
 function Level(appProps) {
 
-    function handleLevel(event) {
-        // if (event.target.classList.contains('easiest')) {
-        //     appProps.setConfigGame(config.est)
-        //     appProps.restartGame()
-        // }
-        // if (event.target.classList.contains('normal')) {
-        //     appProps.setConfigGame(config.nor)
-        //     appProps.restartGame()
-        // }
-        // if (event.target.classList.contains('intermediate')) {
-        //     appProps.setConfigGame(config.int)
-        //     appProps.restartGame()
-        // }
-        // if (event.target.classList.contains('expert')) {
-        //     appProps.setConfigGame(config.exp)
-        //     appProps.restartGame()
-        // }
-        // console.log("Target:", event.target)
-        let target = event.target
-        appProps.level(target)
+   async function handleLevel(event) {
+        if (event.target.classList.contains('easiest')) {
+            config.est.noStartGameArray = []
+            appProps.setConfigGame(config.est)
+            appProps.setSquareArray(config.est.noStartGameArray)
+            appProps.setInitGameEnable(true)
+            appProps.initGame()
+            appProps.handleReset()
+        }
+        if (event.target.classList.contains('normal')) {
+            config.nor.noStartGameArray = []
+            appProps.setConfigGame(config.nor)
+            appProps.setSquareArray(config.nor.noStartGameArray)
+            appProps.setInitGameEnable(true)
+            appProps.initGame()
+            appProps.handleReset()
+        }
+        if (event.target.classList.contains('intermediate')) {
+            config.int.noStartGameArray = []
+            appProps.setConfigGame(config.int)
+            appProps.setSquareArray(config.int.noStartGameArray)
+            appProps.setInitGameEnable(true)
+            appProps.initGame()
+            appProps.handleReset()
+        }
+        if (event.target.classList.contains('expert')) {
+            config.exp.noStartGameArray = []
+            await appProps.setConfigGame(config.exp)
+            await appProps.setSquareArray(config.exp.noStartGameArray)
+            await appProps.setInitGameEnable(true)
+            await appProps.initGame()
+            await appProps.restartGame()
+            await appProps.handleReset()
+        }
     }
 
     return(

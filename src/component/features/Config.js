@@ -2,7 +2,7 @@ var config = {
     est: {
         row: 9,
         col: 9,
-        mines: 1,
+        mines: 5,
         flags: 5,
         cells: [],
         noStartGameArray: [],
@@ -29,8 +29,8 @@ var config = {
     exp: {
         row: 14,
         col: 14,
-        mines: 30,
-        flags: 30,
+        mines: 40,
+        flags: 40,
         cells: [],
         noStartGameArray: [],
         startSquareArray: [],

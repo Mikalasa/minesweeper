@@ -16,7 +16,7 @@ class InitCells {
             let sub = cells.splice(0, row)
             noStartGameArray.push(sub)
         }
-        //return noStartGameArray
+        return noStartGameArray
     }
     init() {
         this.beforeStartedGameCells()
