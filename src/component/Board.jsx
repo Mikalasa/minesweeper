@@ -17,9 +17,9 @@ function Board(appProps) {
         if (clicked === true) {
             await appProps.setGameStart(true)
         }
-        config.gameBoard.startSquareArray = []
-        await new Game(appProps.gameStart, appProps.setSquareArray, props, config, Utility, clickedIndex)
-        await new LeftClick(clicked, props, event)
+        appProps.configGame.startSquareArray = []
+        await new Game(appProps.gameStart, appProps.setSquareArray, props, appProps.configGame, Utility, clickedIndex)
+        await new LeftClick(clicked, props, event, appProps.configGame)
         if (props.number === 9 && !flag.classList.contains('flag-open')) {
             appProps.setClickedBomb(true)
             appProps.gameOver()
@@ -77,6 +77,7 @@ function Board(appProps) {
 
                                         startGame={appProps.gameStart}
                                         clickedBomb={appProps.clickedBomb}
+                                        configGameFlags={appProps.configGameFlags}
 
                                         checkWinCallback={checkWinCallback}
                                         leftClick={leftClicks}

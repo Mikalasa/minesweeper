@@ -5,22 +5,33 @@ import config from "./features/Config";
 function Level(appProps) {
 
     function handleLevel(event) {
-        if (event.target.tagName !== 'DIV' ) {
-            let newTarget = event.target.parentElement
-            console.log("newTarget:", newTarget)
-            if (newTarget.contains('normal')) {
-                appProps.setConfigGame(config.nor)
-            }
-        }
-        console.log("Target:", event.target)
+        // if (event.target.classList.contains('easiest')) {
+        //     appProps.setConfigGame(config.est)
+        //     appProps.restartGame()
+        // }
+        // if (event.target.classList.contains('normal')) {
+        //     appProps.setConfigGame(config.nor)
+        //     appProps.restartGame()
+        // }
+        // if (event.target.classList.contains('intermediate')) {
+        //     appProps.setConfigGame(config.int)
+        //     appProps.restartGame()
+        // }
+        // if (event.target.classList.contains('expert')) {
+        //     appProps.setConfigGame(config.exp)
+        //     appProps.restartGame()
+        // }
+        // console.log("Target:", event.target)
+        let target = event.target
+        appProps.level(target)
     }
 
     return(
         <div className="level">
-            <div className="level-button easiest" onClick={handleLevel}><span className={'lighting-text'}>Easiest</span></div>
-            <div className="level-button normal" onClick={handleLevel}><span className={'lighting-text'}>Normal</span></div>
-            <div className="level-button intermediate"><span className={'lighting-text'}>Intermediate</span></div>
-            <div className="level-button expert"><span className={'lighting-text'}>Expert</span></div>
+            <div className="level-button easiest" onClick={handleLevel}>Easiest</div>
+            <div className="level-button normal" onClick={handleLevel}>Normal</div>
+            <div className="level-button intermediate" onClick={handleLevel}>Intermediate</div>
+            <div className="level-button expert" onClick={handleLevel}>Expert</div>
         </div>
     )
 }

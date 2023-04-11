@@ -5,8 +5,7 @@ import config from "./features/Config";
 import checkCounter from "./features/FlagCounter";
 
 function FlagCounter(props) {
-
-    const [flagCounter, setFlagCounter] = useState(config.gameBoard.flags);
+    const [flagCounter, setFlagCounter] = useState(props.configGameFlags);
 
     useEffect(() => {
         if (props.lose === true) {
@@ -14,7 +13,7 @@ function FlagCounter(props) {
         }
 
         const timerId = setInterval(() => {
-            checkCounter(setFlagCounter)
+            checkCounter(setFlagCounter, props.configGameFlags)
         }, 200);
 
         return () => {

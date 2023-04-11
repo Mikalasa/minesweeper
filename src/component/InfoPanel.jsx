@@ -18,6 +18,7 @@ function InfoPanel(appProps) {
             <div className="header">
                 <FlagCounter
                     lose={appProps.lose}
+                    configGameFlags={appProps.configGameFlags}
                 />
                 <div id="js-smiley" className="smiley">
                     <img onClick={clickEmoji} src={appProps.emoji} className="emoji normal"/>

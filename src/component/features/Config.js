@@ -1,9 +1,9 @@
 var config = {
-    gameBoard: {
+    est: {
         row: 9,
         col: 9,
         mines: 1,
-        flags: 2,
+        flags: 5,
         cells: [],
         noStartGameArray: [],
         startSquareArray: [],
@@ -18,8 +18,8 @@ var config = {
         startSquareArray: [],
     },
     int: {
-        row: 13,
-        col: 13,
+        row: 12,
+        col: 12,
         mines: 20,
         flags: 20,
         cells: [],
@@ -27,8 +27,8 @@ var config = {
         startSquareArray: [],
     },
     exp: {
-        row: 16,
-        col: 16,
+        row: 14,
+        col: 14,
         mines: 30,
         flags: 30,
         cells: [],

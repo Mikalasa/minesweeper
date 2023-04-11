@@ -1,7 +1,8 @@
 import config from "./Config";
 class RightClick {
-    constructor(event) {
+    constructor(event, configGameFlags) {
         this.event = event
+        this.flages = configGameFlags
         this.countFlag()
     }
     countFlag() {
@@ -20,7 +21,7 @@ class RightClick {
             let newTarget = target.parentElement
             if (!newTarget.classList.contains('cell-opened')){
                 let flag = newTarget.children[2]
-                if (!flag.classList.contains('flag-open') && config.gameBoard.flags > allInsertedFlag.length) {
+                if (!flag.classList.contains('flag-open') && this.flages > allInsertedFlag.length) {
                     flag.classList.add('flag-open')
                 } else {
                     flag.classList.remove('flag-open')
@@ -29,7 +30,7 @@ class RightClick {
         } else {
             if (!target.classList.contains('cell-opened')) {
                 let flag = target.children[2]
-                if (!flag.classList.contains('flag-open') && config.gameBoard.flags > allInsertedFlag.length) {
+                if (!flag.classList.contains('flag-open') && this.flages > allInsertedFlag.length) {
                     flag.classList.add('flag-open')
                 } else {
                     flag.classList.remove('flag-open')

@@ -1,11 +1,10 @@
-import config from "./Config";
 class LeftClick{
-    constructor(clicked, props, event) {
+    constructor(clicked, props, event, configGame) {
         this.clicked = clicked
         this.props = props
         this.event = event
+        this.config = configGame
 
-        //this.checkLeftClick()
         this.check()
     }
     check() {
@@ -23,7 +22,7 @@ class LeftClick{
                 target.classList.add('cell-opened')
                 let x = Number(this.props.x)
                 let y = Number(this.props.y)
-                this.openAround(x, y)
+                this.openAround(x, y, this.config)
             } else if (number !== '9' && !flag.classList.contains('flag-open')) {
                 target.classList.add('cell-opened')
             } else {
@@ -34,11 +33,11 @@ class LeftClick{
             }
         }
     }
-    openAround(x, y) {
+    openAround(x, y, config) {
         let aroundCells = [];
         function processCell(dx, dy) {
-            if (dx >= 0 && dx < config.gameBoard.row && dy >= 0 && dy < config.gameBoard.col) {
-                let newCellClass = '.index-' + (dx * config.gameBoard.row + dy);
+            if (dx >= 0 && dx < config.row && dy >= 0 && dy < config.col) {
+                let newCellClass = '.index-' + (dx * config.row + dy);
                 let newCell = document.querySelector(`${newCellClass}`);
                 aroundCells.push(newCell);
             }
@@ -66,7 +65,7 @@ class LeftClick{
                 let cell = item;
                 let x = Number(cell.dataset.x);
                 let y = Number(cell.dataset.y);
-                this.openAround(x, y);
+                this.openAround(x, y, config);
             });
         });
     }

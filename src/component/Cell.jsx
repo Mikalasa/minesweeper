@@ -24,7 +24,7 @@ function Cell(props) {
 
     async function handleRightClick(event) {
         event.preventDefault()
-        await new RightClick(event)
+        await new RightClick(event, props.configGameFlags)
         await props.checkWinCallback()
     }
 

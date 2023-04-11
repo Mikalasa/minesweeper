@@ -215,33 +215,6 @@ div[data-number="0"] {
     align-items: center;
     justify-content: center;
 }
-.lighting-text {
-    --bg-size: 400%;
-    --color-one: hsl(300, 74%, 72%);
-    --color-two: hsl(23, 76%, 63%);
-    font-family: sans-serif;
-    font-size: clamp(20rem, 25vmin, 20rem);
-    background: linear-gradient(
-            120deg,
-            var(--color-one),
-            var(--color-two),
-            var(--color-one)
-    )
-    0 0 / var(--bg-size) 100%;
-    color: transparent;
-    background-clip: text;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-    .lighting-text {
-        animation: move-bg 8s linear infinite;
-    }
-    @keyframes move-bg {
-        to {
-            background-position: var(--bg-size) 0;
-        }
-    }
-}
 
 
 /*******************/

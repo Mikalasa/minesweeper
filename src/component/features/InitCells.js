@@ -1,6 +1,6 @@
 class InitCells {
     constructor(config) {
-        this.gameBoard = config.gameBoard
+        this.gameBoard = config
         this.init()
     }
     beforeStartedGameCells() {

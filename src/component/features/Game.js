@@ -1,16 +1,16 @@
 class Game {
     constructor(gameStart, setSquareArray, props, config, Utility, clickedIndex) {
-        this.gameBoard = config.gameBoard
+        this.config = config
         this.props = props
         this.gameStart = gameStart
         this.setSquareArray = setSquareArray
         this.coordIndex = this.props.coordIndex
         this.clickedCellIndex = clickedIndex
-        this.cells = this.gameBoard.cells
-        this.row = this.gameBoard.row
-        this.col = this.gameBoard.col
-        this.mines = this.gameBoard.mines
-        this.startSquareArray = this.gameBoard.startSquareArray
+        this.cells = this.config.cells
+        this.row = this.config.row
+        this.col = this.config.col
+        this.mines = this.config.mines
+        this.startSquareArray = this.config.startSquareArray
         this.Utility = Utility
 
         this.startGame()
@@ -18,7 +18,7 @@ class Game {
     startGame() {
         if (this.gameStart === false) {
             this.createCells()
-            this.setSquareArray(this.gameBoard.startSquareArray)
+            this.setSquareArray(this.config.startSquareArray)
         }
     }
     createCells() {
@@ -35,7 +35,7 @@ class Game {
     }
     // random the mines
     shuffle() {
-        var cells = this.gameBoard.cells
+        var cells = this.config.cells
         for (let i = cells.length - 1; i >= 0; i --) {
             let randomIndex = Math.floor(Math.random() * (i + 1))
             let itemIndex = cells[randomIndex]
