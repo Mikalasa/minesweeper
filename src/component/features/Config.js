@@ -2,8 +2,8 @@ var config = {
     est: {
         row: 9,
         col: 9,
-        mines: 5,
-        flags: 5,
+        mines: 1,
+        flags: 4,
         cells: [],
         noStartGameArray: [],
         startSquareArray: [],

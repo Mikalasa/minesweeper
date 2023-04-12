@@ -13,9 +13,11 @@ function Cell(props) {
     }
 
     function handleLeftClick(event) {
-        if (clicked === false && !event.target.classList.contains('flag')) {
-            clicked = true
-            props.leftClick(clicked, props, event, props.index)
+        if (event.target.tagName === 'DIV') {
+            if (clicked === false && !event.target.children[2].classList.contains('flag-open')) {
+                clicked = true
+                props.leftClick(clicked, props, event, props.index)
+            }
         }
         if (clicked === true && props.startGame === false) {
             clicked = false

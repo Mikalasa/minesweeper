@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 
 //custom React
 import Board from "./Board"
@@ -15,15 +15,16 @@ import Level from "./Level";
 
 function App() {
 
-    const [configGame, setConfigGame] = useState(config.est);
+    const [configGame, setConfigGame] = useState(config.nor);
+    const [squareArray, setSquareArray] = useState(configGame.noStartGameArray);
     const [message, setMessage] = useState('Mine Sweeper');
     const [emoji, setEmoji] = useState('./svg/emoji.svg');
-    const [squareArray, setSquareArray] = useState(configGame.noStartGameArray);
     const [initGameEnable, setInitGameEnable] = useState(true);
     const [lose, setLose] = useState(false);
     const [gameStart, setGameStart] = useState(false);
     const [clickedBomb, setClickedBomb] = useState(false);
     const [flagFlicker, setFlagFlicker] = useState(false);
+
     const [resetKey1, setResetKey1] = useState(0)
     const [resetKey2, setResetKey2] = useState(1)
 
@@ -34,13 +35,18 @@ function App() {
     }
 
     function initGame() {
-        console.log('im in initing above:', initGameEnable, gameStart)
-        console.log('configGame in initing above:', configGame)
         if (initGameEnable === true && gameStart === false) {
-            console.log('im initing')
             new InitCells(configGame)
             setInitGameEnable(false)
         }
+    }
+    function resetProperty() {
+        setMessage('Mine Sweeper')
+        setEmoji('./svg/emoji.svg')
+        setLose(false)
+        setClickedBomb(false)
+        setFlagFlicker(false)
+        setGameStart(false)
     }
     function gameOver() {
         setMessage('Game lose, click emoji to restart')
@@ -51,23 +57,14 @@ function App() {
         new GameOver()
     }
     function restartGame() {
-        console.log("configGame.noStartGameArray:", configGame.noStartGameArray)
-        console.log("configGame:", configGame)
-        //configGame.noStartGameArray = []
-        //await setInitGameEnable(true)
-        setMessage('Mine Sweeper')
-        setEmoji('./svg/emoji.svg')
-        setLose(false)
-        setClickedBomb(false)
-        setFlagFlicker(false)
-        setGameStart(false)
+        resetProperty()
         setSquareArray(configGame.noStartGameArray)
         new GameOver().cleanClasses()
         handleReset()
     }
 
     function winTheGame() {
-        setMessage('Game win!, click emoji to play!')
+        setMessage('Game win! choose level to play!')
         setEmoji('./svg/emojiWin.svg')
         setGameStart(false)
     }
@@ -88,19 +85,22 @@ function App() {
         }
     }
 
+    function resetLevel() {
+        setInitGameEnable(true)
+        resetProperty()
+        initGame()
+        handleReset()
+    }
+
     initGame()
 
     return (
         <div id="canvas">
             <Level
-                handleReset={handleReset}
-                restartGame={restartGame}
-                initGame={initGame}
+                resetLevel={resetLevel}
 
                 setConfigGame={setConfigGame}
                 setSquareArray={setSquareArray}
-
-                setInitGameEnable={setInitGameEnable}
             />
             <InfoPanel
                 key={resetKey1}

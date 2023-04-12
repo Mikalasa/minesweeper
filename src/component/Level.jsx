@@ -1,42 +1,33 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 //custom JS
 import config from "./features/Config";
 function Level(appProps) {
 
-   async function handleLevel(event) {
+   function handleLevel(event) {
         if (event.target.classList.contains('easiest')) {
             config.est.noStartGameArray = []
             appProps.setConfigGame(config.est)
             appProps.setSquareArray(config.est.noStartGameArray)
-            appProps.setInitGameEnable(true)
-            appProps.initGame()
-            appProps.handleReset()
+            appProps.resetLevel()
         }
         if (event.target.classList.contains('normal')) {
             config.nor.noStartGameArray = []
             appProps.setConfigGame(config.nor)
             appProps.setSquareArray(config.nor.noStartGameArray)
-            appProps.setInitGameEnable(true)
-            appProps.initGame()
-            appProps.handleReset()
+            appProps.resetLevel()
         }
         if (event.target.classList.contains('intermediate')) {
             config.int.noStartGameArray = []
             appProps.setConfigGame(config.int)
             appProps.setSquareArray(config.int.noStartGameArray)
-            appProps.setInitGameEnable(true)
-            appProps.initGame()
-            appProps.handleReset()
+            appProps.resetLevel()
         }
         if (event.target.classList.contains('expert')) {
             config.exp.noStartGameArray = []
-            await appProps.setConfigGame(config.exp)
-            await appProps.setSquareArray(config.exp.noStartGameArray)
-            await appProps.setInitGameEnable(true)
-            await appProps.initGame()
-            await appProps.restartGame()
-            await appProps.handleReset()
+            appProps.setConfigGame(config.exp)
+            appProps.setSquareArray(config.exp.noStartGameArray)
+            appProps.resetLevel()
         }
     }
 

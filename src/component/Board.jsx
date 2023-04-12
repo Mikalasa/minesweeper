@@ -4,7 +4,6 @@ import React, {useEffect} from "react";
 import Cells from "./Cell";
 
 //custom JS
-import config from "./features/Config";
 import Game from "./features/Game";
 import Utility from "./features/Utility";
 import LeftClick from "./features/LeftClick";
