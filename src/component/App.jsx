@@ -18,7 +18,7 @@ function App() {
     const [configGame, setConfigGame] = useState(config.nor);
     const [squareArray, setSquareArray] = useState(configGame.noStartGameArray);
     const [message, setMessage] = useState('Mine Sweeper');
-    const [emoji, setEmoji] = useState('./svg/emoji.svg');
+    const [emoji, setEmoji] = useState( process.env.PUBLIC_URL + '/svg/emoji.svg');
     const [initGameEnable, setInitGameEnable] = useState(true);
     const [lose, setLose] = useState(false);
     const [gameStart, setGameStart] = useState(false);
@@ -42,7 +42,7 @@ function App() {
     }
     function resetProperty() {
         setMessage('Mine Sweeper')
-        setEmoji('./svg/emoji.svg')
+        setEmoji( process.env.PUBLIC_URL + '/svg/emoji.svg')
         setLose(false)
         setClickedBomb(false)
         setFlagFlicker(false)
@@ -50,7 +50,7 @@ function App() {
     }
     function gameOver() {
         setMessage('Game lose, click emoji to restart')
-        setEmoji('./svg/deadEmoji.svg')
+        setEmoji( process.env.PUBLIC_URL + '/svg/deadEmoji.svg')
         setLose(true)
         setGameStart(false)
         setFlagFlicker(true)
@@ -65,7 +65,7 @@ function App() {
 
     function winTheGame() {
         setMessage('Game win! choose level to play!')
-        setEmoji('./svg/emojiWin.svg')
+        setEmoji( process.env.PUBLIC_URL + '/svg/emojiWin.svg')
         setGameStart(false)
     }
 

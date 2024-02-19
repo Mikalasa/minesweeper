@@ -6,10 +6,10 @@ import RightClick from "./features/RightClick";
 function Cell(props) {
     var clicked = false
     var number = props.number
-    var flagPath = './svg/flag.svg'
+    var flagPath = process.env.PUBLIC_URL + '/svg/flag.svg'
 
     if (props.number === 9) {
-        var src = "./svg/bomb.svg"
+        var src = process.env.PUBLIC_URL + "/svg/bomb.svg"
     }
 
     function handleLeftClick(event) {
